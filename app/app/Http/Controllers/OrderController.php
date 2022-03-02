@@ -19,7 +19,9 @@ class OrderController extends Controller
             $query->where('buyer_id', $userId)
                 ->orWhere('seller_id', $userId);
         })
-        ->with('market')
+        ->with(['market' => function($query) {
+            $query->with('symbol');
+        }])
         ->get();
 
         return view('order.index', compact('orders'));
@@ -52,7 +54,7 @@ class OrderController extends Controller
 
             $ordered = Order::create([
                 'market_id' => $id,
-                'type' => $request->type,
+                'type' => $type === 'buy' ? 1 : 2,
                 'buyer_id' => $buyerId,
                 'seller_id' => $sellerId,
                 'amount' => $request->amount,
