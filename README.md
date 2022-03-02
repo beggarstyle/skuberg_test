@@ -30,7 +30,11 @@ php artisan key:generate
 ```
 composer install
 ```
-7.เริ่ม server
+7.สร้างตาราง และข้อมูลด้วยคำสั่ง
+```
+php artisan migrate && php artisan db:seed
+```
+8.เริ่ม server
 ```
 php artisan server
 ```
