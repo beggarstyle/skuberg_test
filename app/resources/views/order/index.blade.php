@@ -1,40 +1,35 @@
 <x-Layouts.App>
-  <div class="w-full h-full p-2">
-    <div class="flex flex-col flex-wrap">
-      <div class="w-full bg-white mx-2 mb-2 p-2">
-        <h2>Open Orders</h2>
-        <hr class="my-2" />
+  <div class="w-full bg-white rounded-sm p-2 mb-2">
+    <h2>Orders</h2>
+  </div>
 
-        <div>
-          <table class="w-full">
-            <thead class="h-8">
-              <tr>
-                <th>Pair Date</th>
-                <th>Type / Side Trigger Conditions</th>
-                <th>Price</th>
-                <th>Total</th>
-                {{-- <th>Action</th> --}}
-              </tr>
-            </thead>
+  <div class="w-full bg-white rounded-sm p-2 mb-2">
+    <table class="w-full">
+      <thead class="h-8">
+        <tr>
+          <th class="text-center">Date</th>
+          <th class="text-center">Symbol</th>
+          <th class="text-center">Type</th>
+          <th class="text-center">Price</th>
+          <th class="text-center">Volume</th>
+        </tr>
+      </thead>
 
-            <tbody>
-              @foreach($orders as $order)
-                <tr>
-                  {{-- <td class="text-center" colspan="5">No Records Found.</td> --}}
-                  <td></td>
-                  <td class="text-right">
-                    <p class="{{ $order->market->type == 1 ? 'text-green-400' : 'text-red-400' }}">
-                      {{ $order->market->type == 1 ? 'Buy' : 'Sell' }}
-                    </p>
-                  </td>
-                  <td class="text-right">{{ $order->amount }}</td>
-                  <td class="text-right">{{ $order->receive }}</td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+      <tbody>
+        @foreach($orders as $order)
+          <tr class="h-12 border-b">
+            <td>{{ $order->created_at }}</td>
+            <td class="text-center">{{ $order->market->symbol->symbol }}</td>
+            <td class="text-center">
+              <p class="{{ $order->type == 1 ? 'text-green-400' : 'text-red-400' }}">
+                {{ $order->type == 1 ? 'Buy' : 'Sell' }}
+              </p>
+            </td>
+            <td class="text-right">{{ $order->amount }}</td>
+            <td class="text-right">{{ $order->receive }}</td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
   </div>
 </x-Layouts.App>
