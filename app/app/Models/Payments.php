@@ -93,6 +93,10 @@ class Payments
         // Seller
         $updateBuyerWallet = Wallet::where('user_id', $sellerId)
             ->where('symbol', $symbol)
+            ->decrement('available', $receive);
+
+        $updateBuyerWallet = Wallet::where('user_id', $sellerId)
+            ->where('symbol', $symbol)
             ->decrement('actual', $receive);
     }
 }
